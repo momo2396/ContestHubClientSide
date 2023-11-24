@@ -1,13 +1,31 @@
 import { Link } from "react-router-dom";
 import Nav from "../shared/loginRegisterNav/Nav";
+import { useContext } from "react";
+// import { AuthContext } from "../../providers/AuthProviders";
+import { AuthContext } from "../../providers/AuthProviders";
+import Swal from "sweetalert2";
 
 // import { SiGmail } from "react-icons/si";
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+      Swal.fire("Logged In!", "You logged in successfully!", "success");
+    });
+  };
   return (
     <div>
       <Nav></Nav>
       <section className="container mx-auto p-10 dark:text-gray-50 dark:bg-gray-900">
         <form
+          onSubmit={handleLogin}
           noValidate=""
           action=""
           className="container flex flex-col mx-auto space-y-12"
@@ -25,6 +43,7 @@ const Login = () => {
                   Email
                 </label>
                 <input
+                  name="email"
                   id="email"
                   type="email"
                   placeholder="Email"
@@ -37,9 +56,10 @@ const Login = () => {
                   Password
                 </label>
                 <input
-                  id="city"
+                  name="password"
+                  id="password"
                   type="password"
-                  placeholder="password"
+                  placeholder="Password"
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                   required
                 />

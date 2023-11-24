@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom";
 import Nav from "../shared/loginRegisterNav/Nav";
-
+import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { createUser } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data?.email, data?.password).then((result) => {
+      const loggedUser = result?.user;
+      console.log(loggedUser);
+    });
+  };
   return (
     <div>
       <Nav></Nav>
       <section className="p-6 dark:text-gray-50 dark:bg-gray-900">
         <form
+          onSubmit={handleSubmit(onSubmit)}
           noValidate=""
           action=""
           className="container flex flex-col mx-auto space-y-12"
@@ -24,52 +41,73 @@ const Register = () => {
                   Name
                 </label>
                 <input
-                  id="name"
-                  type="text"
+                  {...register("name", { required: true })}
                   placeholder="Name"
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
-                  required
+                  type="text"
                 />
+                {errors.name && (
+                  <span className="text-red-700">This field is required</span>
+                )}
               </div>
               <div className="col-span-full sm:col-span-3">
                 <label htmlFor="email" className="text-sm">
                   Email
                 </label>
                 <input
-                  id="email"
-                  type="email"
+                  {...register("email", { required: true })}
                   placeholder="Email"
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
-                  required
+                  type="email"
                 />
+                {errors.email && (
+                  <span className="text-red-700">This field is required</span>
+                )}
               </div>
               <div className="col-span-full">
                 <label htmlFor="photoURL" className="text-sm">
                   PhotoURL
                 </label>
                 <input
-                  id="photoURL"
-                  type="text"
-                  placeholder="image link"
+                  {...register("photoURL", { required: true })}
+                  placeholder="Image Link"
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
-                  required
+                  type="text"
                 />
+                {errors.photoURL && (
+                  <span className="text-red-700">This field is required</span>
+                )}
               </div>
               <div className="col-span-full sm:col-span-2">
                 <label htmlFor="Password" className="text-sm">
                   Password
                 </label>
                 <input
-                  id="city"
-                  type="password"
-                  placeholder="password"
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    pattern:
+                      /^(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Z\d#$@!%&*?]/,
+                  })}
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
-                  required
+                  placeholder="Password"
+                  type="password"
                 />
+                {errors.password?.type === "required" && (
+                  <span className="text-red-700">This field is required</span>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-red-700">Minimum 6 length</span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-700">
+                    Minimum One Special Character, One Capital Letter, One Digit
+                  </span>
+                )}
               </div>
             </div>
             <div>
-              <button className="btn">Register</button>
+              <input className="btn" type="submit" value="Register" />
             </div>
           </fieldset>
         </form>

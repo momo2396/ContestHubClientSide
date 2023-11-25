@@ -27,7 +27,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div>
-            <Link to="/register" className="hidden lg:block">
+            <Link to="/register" className="block lg:hidden">
               Register
             </Link>
           </div>

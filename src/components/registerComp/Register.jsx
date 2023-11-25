@@ -1,21 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Nav from "../shared/loginRegisterNav/Nav";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
+import Swal from "sweetalert2";
 const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-
-  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
   const onSubmit = (data) => {
     console.log(data);
     createUser(data?.email, data?.password).then((result) => {
       const loggedUser = result?.user;
       console.log(loggedUser);
+      updateUserProfile(data?.name, data?.photoURL)
+        .then(() => {
+          reset();
+          Swal.fire({
+            title: "Successfully Registered",
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
+          logOut().then(() => {
+            navigate("/login");
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
   };
   return (

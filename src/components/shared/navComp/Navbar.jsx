@@ -17,25 +17,21 @@ const Navbar = () => {
       <li>
         <a>Item 3</a>
       </li>
-
       {user ? (
-        <button onClick={handleLogOut} className="btn">
-          Logout
-        </button>
+        ""
       ) : (
-        <>
-          {" "}
-          <li>
+        <div className="text-red-700 mt-10 lg:mt-0 navbar-end  py-5 lg:py-0 gap-3">
+          <div>
             <Link to="/login" className="block lg:hidden">
               Login
             </Link>
-          </li>
-          <li>
-            <Link to="/register" className="block lg:hidden">
+          </div>
+          <div>
+            <Link to="/register" className="hidden lg:block">
               Register
             </Link>
-          </li>
-        </>
+          </div>
+        </div>
       )}
     </>
   );
@@ -74,32 +70,51 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <div className=" hidden lg:block">
-          <Link to="/login" className="btn">
-            Login
-          </Link>
-          <Link to="/register" className="btn">
-            Register
-          </Link>
-        </div>
         {user ? (
-          <button onClick={handleLogOut} className="btn">
-            Logout
-          </button>
+          <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
+            <div className="flex flex-row justify-center items-center gap-5 ">
+              <div className="dropdown dropdown-bottom dropdown-end">
+                <label tabIndex={0} className=" m-1">
+                  <img
+                    className="w-10 h-10 rounded-full border-2 border-blue-500 p-0.5"
+                    src={user?.photoURL}
+                  />
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <div className="text-red-700">{user?.displayName}</div>
+                  <Link to="/orderedPage">Your Ordered Foods</Link>
+                  <Link to="/addedFood">Your Added Page</Link>
+                  <Link to="/addFood">Add a Food </Link>
+                  <div>
+                    <button
+                      className="btn bg-[#a294cd] border-[#a294cd]"
+                      onClick={handleLogOut}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
         ) : (
-          <>
-            {" "}
-            <li>
-              <Link to="/login" className="block lg:hidden">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/register" className="block lg:hidden">
-                Register
-              </Link>
-            </li>
-          </>
+          <div className="flex flex-row mt-10 lg:mt-0 navbar-end  py-5 lg:py-0 gap-3">
+            <>
+              <div>
+                <Link to="/login" className=" hidden lg:block">
+                  Login
+                </Link>
+              </div>
+              <div>
+                <Link to="/register" className="hidden lg:block">
+                  Register
+                </Link>
+              </div>
+            </>
+          </div>
         )}
       </div>
     </div>

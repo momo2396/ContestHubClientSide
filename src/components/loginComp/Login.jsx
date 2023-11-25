@@ -1,13 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Nav from "../shared/loginRegisterNav/Nav";
 import { useContext } from "react";
-// import { AuthContext } from "../../providers/AuthProviders";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 
 // import { SiGmail } from "react-icons/si";
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, loginWithGoogle, setLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const handleGoogleLogin = () => {
+    loginWithGoogle().then((result) => {
+      const user = result.user;
+      console.log(user);
+      Swal.fire("Logged In!", "You logged in successfully!", "success");
+    });
+    navigate(from, { replace: true });
+    setLoading(false);
+  };
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -19,6 +30,7 @@ const Login = () => {
       console.log(user);
       Swal.fire("Logged In!", "You logged in successfully!", "success");
     });
+    navigate(from, { replace: true });
   };
   return (
     <div>
@@ -72,7 +84,9 @@ const Login = () => {
         </form>
         <div className="pt-10 flex justify-center items-center gap-5">
           <div>
-            <button className="btn">Login With Gmail</button>
+            <button onClick={handleGoogleLogin} className="btn">
+              Login With Gmail
+            </button>
           </div>
           <Link to="/register" className="btn">
             New User?{" "}

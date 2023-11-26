@@ -1,10 +1,11 @@
-import Navbar from "../shared/navComp/Navbar";
 import Banner from "./Banner";
+import Popular from "./popularSection/Popular";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
+      <Popular></Popular>
     </div>
   );
 };

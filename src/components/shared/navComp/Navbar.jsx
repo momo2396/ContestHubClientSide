@@ -11,6 +11,7 @@ const Navbar = () => {
   const navOptions = (
     <>
       <Link to="/">Home</Link>
+      <Link to="/contests">All Contests</Link>
       <Link to="/dashboard">Dashboard</Link>
       {user ? (
         ""
@@ -31,7 +32,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="max-w-[1710px] mx-auto navbar bg-[#2a9d8f] fixed z-50 text-white bg-opacity-80 ">
+    <div className=" navbar bg-[#2a9d8f] fixed z-50 text-white bg-opacity-80 ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">

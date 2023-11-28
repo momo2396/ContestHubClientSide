@@ -10,6 +10,7 @@ const Login = () => {
   const { signIn, loginWithGoogle, setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location?.state?.from?.pathname);
   const from = location.state?.from?.pathname || "/";
   const handleGoogleLogin = () => {
     loginWithGoogle().then(async (result) => {
@@ -20,11 +21,9 @@ const Login = () => {
         photoURL: user?.photoURL,
         status: "user",
       });
-      console.log(user);
       Swal.fire("Logged In!", "You logged in successfully!", "success");
     });
     navigate(from, { replace: true });
-    setLoading(false);
   };
   const handleLogin = (event) => {
     event.preventDefault();
@@ -32,9 +31,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    signIn(email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
+    signIn(email, password).then(() => {
       Swal.fire("Logged In!", "You logged in successfully!", "success");
     });
     navigate(from, { replace: true });

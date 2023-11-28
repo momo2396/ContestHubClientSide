@@ -8,7 +8,9 @@ import Profile from "../components/Profile";
 import Dashboard from "../components/dashboard/Dashboard";
 import Users from "../components/dashboard/Users";
 import AllContests from "../components/dashboard/AllContests";
+import Contests from "../components/allContests/Contests";
 import RoleCheck from "./RoleCheck";
+import DetailsPage from "../components/detailsPageComp/DetailsPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/contests",
+        element: <Contests></Contests>,
+      },
+      {
+        path: "/details/:id",
+        element: <DetailsPage></DetailsPage>,
       },
       {
         path: "/profile",

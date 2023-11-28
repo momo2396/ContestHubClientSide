@@ -4,7 +4,7 @@ const PopularSingle = ({ c }) => {
   const word = c?.contestDescription.split(" ");
   const shortDescription = word.slice(0, 5).join(" ");
   return (
-    <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-[#925b2a] text-white">
+    <div className="flex flex-col w-[400px] lg:w-[500px]  p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-[#e9c46a] text-gray-600">
       <div className="flex  space-x-4">
         <img
           alt=""
@@ -26,7 +26,7 @@ const PopularSingle = ({ c }) => {
         <img
           src="https://source.unsplash.com/random/100x100/?5"
           alt=""
-          className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500"
+          className="object-cover w-full mb-4 h-36 sm:h-64 dark:bg-gray-500"
         />
         <h2 className="mb-1 text-xl font-semibold">{c?.contestName}</h2>
         <h2 className="mb-1 text-xl font-semibold">#{c?.contestType}</h2>

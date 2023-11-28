@@ -9,7 +9,9 @@ const Popular = () => {
   const [contests, setContests] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/all-contests/popular-contests")
+      .get(
+        "https://contest-platform-server-iota.vercel.app/all-contests/popular-contests"
+      )
       .then((result) => {
         setContests(result?.data);
       })

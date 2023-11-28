@@ -34,7 +34,7 @@ const Banner = () => {
       <div>
         <Carousel className="">
           <div
-            className="bg-cover bg-black bg-blend-overlay bg-opacity-60"
+            className="bg-cover bg-[#264653] bg-blend-overlay bg-opacity-60"
             style={{
               backgroundImage: 'url("https://i.ibb.co/L5WZPPF/sushi.jpg")',
             }}
@@ -43,7 +43,7 @@ const Banner = () => {
               <h1 className="text-white text-5xl font-bold leadi sm:text-6xl xl:max-w-3xl">
                 Cooking Contest Platform
               </h1>
-              <p className="text-white mt-6 mb-8 text-lg sm:mb-12 xl:max-w-3xl ">
+              <p className="text-white  mt-6 mb-8 text-lg sm:mb-12 xl:max-w-3xl ">
                 Register Now!! Show your skill!!
               </p>
               <div className="flex flex-wrap justify-center">

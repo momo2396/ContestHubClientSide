@@ -57,6 +57,15 @@ const DetailsPage = () => {
           </p>
           <p>Contest Created: {data?.contestCreationDate}</p>
           <img className="w-[700px]" src={data?.image} alt="" />
+          <div className="flex flex-col lg:flex-row gap-5 items-start">
+            <img
+              className="w-11 rounded-full"
+              src={data?.contestCreatorImage}
+              alt=""
+            />
+            <p>Contest Creator: {data?.contestCreatorName}</p>
+          </div>
+          <p>Contact Him: {data?.contestCreatorMail}</p>
         </div>
         <div className="absolute -bottom-3 -right-3 lg:-right-7 w-fit h-fit flex flex-col gap-2 bg-[#bc6c25]  rounded-lg px-2 py-3 text-center">
           <p>Food: {data?.contestName}</p>
@@ -70,7 +79,7 @@ const DetailsPage = () => {
       <div className="flex justify-end items-end">
         {new Date(data?.contestDeadline) > new Date() ? (
           <button
-            className={`bg-red-800 text-white p-4 btn hover:text-red-800 hover:bg-white`}
+            className={`bg-red-600 text-white p-4 btn hover:text-red-600 hover:bg-white`}
           >
             {" "}
             Register Now <BsArrowRightShort className="text-xl" />
@@ -80,10 +89,17 @@ const DetailsPage = () => {
         )}
       </div>
       <div className="flex justify-center items-center">
-        {new Date(data?.contestDeadline) < new Date() && (
+        {new Date(data?.contestDeadline) < new Date() ? (
           <div className="bg-[#bc6c25] p-5 rounded-lg text-xl flex flex-col gap-3 text-white w-fit justify-center items-center">
             <img src={data?.winnerImage} className="w-12 rounded-full" />
             <p>Winner: {data?.winnerName}</p>
+          </div>
+        ) : (
+          <div>
+            <p>
+              Started at: {data?.contestStartingTime} UTC,{" "}
+              {data?.contestStartingDate}
+            </p>
           </div>
         )}
       </div>

@@ -11,6 +11,7 @@ import AllContests from "../components/dashboard/AllContests";
 import Contests from "../components/allContests/Contests";
 import RoleCheck from "./RoleCheck";
 import DetailsPage from "../components/detailsPageComp/DetailsPage";
+import AddContest from "../components/dashboard/AddContest";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <DetailsPage></DetailsPage>,
+      },
+      {
+        path: "/addContest",
+        element: <AddContest></AddContest>,
       },
       {
         path: "/profile",

@@ -33,7 +33,6 @@ const Dashboard = () => {
             <div className="flex-1 px-2 mx-2">Dashboard</div>
             <div className="flex-none hidden lg:block">
               <ul className="menu menu-horizontal">
-                {/* Navbar menu content here */}
                 <li>
                   <a>Nav</a>
                 </li>
@@ -44,7 +43,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side z-50">
           <label
             htmlFor="my-drawer-3"
             aria-label="close sidebar"
@@ -54,7 +53,7 @@ const Dashboard = () => {
           <ul className="menu p-4 w-80 min-h-full bg-base-200">
             {/* Sidebar content here */}
             <p>DashBoard</p>
-            <div className="divider lg:divider-horizontal"></div>
+            <div className="divider lg:divider-horizontal "></div>
             <li>
               <Link
                 to="/dashboard/users"

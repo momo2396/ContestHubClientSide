@@ -3,6 +3,7 @@ import Nav from "../shared/loginRegisterNav/Nav";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
+import { postUser } from "../../providers/postUser";
 
 // import { SiGmail } from "react-icons/si";
 const Login = () => {
@@ -11,8 +12,14 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const handleGoogleLogin = () => {
-    loginWithGoogle().then((result) => {
-      const user = result.user;
+    loginWithGoogle().then(async (result) => {
+      const user = result?.user;
+      await postUser({
+        userEmail: user?.email,
+        userName: user?.displayName,
+        photoURL: user?.photoURL,
+        status: "user",
+      });
       console.log(user);
       Swal.fire("Logged In!", "You logged in successfully!", "success");
     });

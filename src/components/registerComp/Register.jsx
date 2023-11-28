@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
+import { postUser } from "../../providers/postUser";
 const Register = () => {
   const {
     register,
@@ -14,12 +15,17 @@ const Register = () => {
   const navigate = useNavigate();
   const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
   const onSubmit = (data) => {
-    console.log(data);
-    createUser(data?.email, data?.password).then((result) => {
+    createUser(data?.email, data?.password).then(async (result) => {
+      await postUser({
+        userEmail: data?.email,
+        userName: data?.displayName,
+        photoURL: data?.photoURL,
+        status: "user",
+      });
       const loggedUser = result?.user;
       console.log(loggedUser);
       updateUserProfile(data?.name, data?.photoURL)
-        .then(() => {
+        .then(async () => {
           reset();
           Swal.fire({
             title: "Successfully Registered",
@@ -30,12 +36,22 @@ const Register = () => {
               popup: "animate__animated animate__fadeOutUp",
             },
           });
+
           logOut().then(() => {
             navigate("/login");
           });
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            title: "Unsuccessful",
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
         });
     });
   };

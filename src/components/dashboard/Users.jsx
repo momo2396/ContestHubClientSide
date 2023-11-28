@@ -1,21 +1,11 @@
 import Swal from "sweetalert2";
 import useGetData, { backendURL } from "../../Routes/useGetData";
 import { FaEdit } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
 const Users = () => {
-  const { data, isLoading, isError, refetch } = useGetData("/all-users");
-  // const [contests, setContests] = useState();
-  // useEffect(() => {
-  //   axios
-  //     .get("https://contest-platform-server-iota.vercel.app/all-users")
-  //     .then((result) => {
-  //       setContests(result?.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [contests]);
-
+  const { user } = useContext(AuthContext);
+  const { data, isLoading, refetch } = useGetData("/all-users");
   const handleRoleChange = async (c, role) => {
     const res = await fetch(backendURL + "/all-users/" + c?._id, {
       method: "PUT",
@@ -33,24 +23,24 @@ const Users = () => {
     refetch();
   };
 
-  console.log(data);
-  if (isLoading) return <p>Loading..</p>;
+  if (isLoading) return <progress className="progress w-56"></progress>;
   return (
-    <div className="pt-20">
-      <div className="bg-[#283618] p-9 mx-auto sm:p-4 dark:text-gray-100">
+    <div className="mt-20 max-w-[98vw] bg-[#606c38]">
+      <div className="p-10 mx-auto dark:text-gray-100">
         <h2 className="mb-4 text-2xl font-semibold leadi">
           Total Users: {data?.length}
         </h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-xs">
-            <thead className="bg-[#606c38]">
-              <tr className="text-left">
-                <th className="p-3 text-center">User Name</th>
-                <th className="p-3 text-center">User Email</th>
-                <th className="p-3 text-center">Role</th>
-                <th className="p-3 text-center">Edit</th>
+          <table className="table table-xs w-fit">
+            <thead className="text-white">
+              <tr className="text-center">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Edit</th>
               </tr>
             </thead>
+
             <tbody>
               {data?.map((c) => (
                 <>
@@ -71,15 +61,17 @@ const Users = () => {
                       </span>
                     </td>
                     <td className="p-5 text-center">
-                      <button
-                        onClick={() =>
-                          document
-                            .getElementById(`${c?._id}RoleChange`)
-                            .showModal()
-                        }
-                      >
-                        <FaEdit />
-                      </button>
+                      {user?.email !== c?.userEmail && (
+                        <button
+                          onClick={() =>
+                            document
+                              .getElementById(`${c?._id}RoleChange`)
+                              .showModal()
+                          }
+                        >
+                          <FaEdit />
+                        </button>
+                      )}
                     </td>
                   </tr>
                 </>
@@ -95,7 +87,6 @@ const Users = () => {
 export default Users;
 
 const Modal = ({ c, handleRoleChange }) => {
-  const roles = ["admin", "creator", "user"];
   const [change, setChange] = useState(c?.status);
   return (
     <>

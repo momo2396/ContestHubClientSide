@@ -8,6 +8,7 @@ import Profile from "../components/Profile";
 import Dashboard from "../components/dashboard/Dashboard";
 import Users from "../components/dashboard/Users";
 import AllContests from "../components/dashboard/AllContests";
+import RoleCheck from "./RoleCheck";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -44,12 +45,24 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
+        path: "/dashboard",
+        element: <p>select option </p>,
+      },
+      {
         path: "/dashboard/users",
-        element: <Users></Users>,
+        element: (
+          <RoleCheck role={"admin"}>
+            <Users></Users>
+          </RoleCheck>
+        ),
       },
       {
         path: "/dashboard/allContests",
-        element: <AllContests></AllContests>,
+        element: (
+          <RoleCheck role={"admin"}>
+            <AllContests></AllContests>
+          </RoleCheck>
+        ),
       },
     ],
   },

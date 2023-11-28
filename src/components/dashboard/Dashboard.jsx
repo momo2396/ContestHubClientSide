@@ -76,7 +76,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="px-1 flex-1 mx-w-[1300px] mx-auto">
+      <div className="px-1  max-w-[1300px] mx-auto">
         <Outlet></Outlet>
       </div>
     </div>

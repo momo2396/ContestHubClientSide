@@ -1,10 +1,16 @@
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
-import { backendURL } from "../../Routes/useGetData";
-import { useNavigate } from "react-router-dom";
-const AddContest = () => {
+import useGetData, { backendURL } from "../../Routes/useGetData";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const UpdateContest = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  const id = pathname.split("/").pop();
+  console.log(id);
   const { user } = useContext(AuthContext);
+  const contestData = useGetData("/all-contests/single-contest/" + id);
   const navigate = useNavigate();
   const handleAdd = (e) => {
     e.preventDefault();
@@ -21,11 +27,11 @@ const AddContest = () => {
     const contestDescription = form.contestDescription.value;
     const contestDeadline = form.contestDeadline.value;
     const taskSubmissionInstruction = form.contestDescription.value;
-    const winnerName = "";
-    const winnerImage = "";
-    const confirmed = false;
-    const participatedCount = 0;
-    const newFood = {
+    const winnerName = contestData?.winnerName;
+    const winnerImage = contestData?.winnerImage;
+    const confirmed = contestData?.confirmed;
+    const participatedCount = contestData?.participatedCount;
+    const updated = {
       contestName,
       contestType,
       image,
@@ -43,38 +49,39 @@ const AddContest = () => {
       confirmed,
       participatedCount,
     };
-    fetch(backendURL + "/all-contests", {
-      method: "POST",
+    fetch(backendURL + "/all-contests/single-contest/" + id, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newFood),
+      body: JSON.stringify(updated),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.insertedId) {
+        if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Success!",
-            text: "You created the contest!",
+            text: "You updated the contest!",
             icon: "success",
             confirmButtonText: "Cool",
           });
-          e.target.reset();
           navigate("/dashboard/myContests");
         } else {
           Swal.fire({
             title: "Error!",
-            text: "Creating failed!",
+            text: "Updating failed!",
             icon: "error",
             confirmButtonText: "Close",
           });
         }
       });
   };
+  if (contestData?.isLoading)
+    return <progress className="progress w-56"></progress>;
   return (
     <div className="px-5 py-10 flex flex-col gap-5 justify-center items-center">
       <h3 className="text-4xl font-bold font-serif text-red-800">
-        Add Contest
+        Update Contest
       </h3>
       <div className="w-full  bg-red-800 p-3 shadow-2xl rounded-2xl">
         <div className="card w-full bg-base-100">
@@ -88,6 +95,7 @@ const AddContest = () => {
                 placeholder="add title"
                 name="contestName"
                 className="input input-bordered"
+                defaultValue={contestData?.data?.contestName}
                 required
               />
             </div>
@@ -138,6 +146,7 @@ const AddContest = () => {
                 type="text"
                 name="contestType"
                 className="select input input-bordered"
+                defaultValue={contestData?.data?.contestType}
               >
                 <option value="Business">Business</option>
                 <option value="ArticleWriting">Article Writing</option>
@@ -155,6 +164,7 @@ const AddContest = () => {
                 className="input input-bordered"
                 name="image"
                 required
+                defaultValue={contestData?.data?.image}
               />
             </div>
             <div className="form-control">
@@ -167,6 +177,7 @@ const AddContest = () => {
                 className="input input-bordered"
                 name="contestPrize"
                 required
+                defaultValue={contestData?.data?.contestPrize}
               />
             </div>
             <div className="form-control">
@@ -178,6 +189,7 @@ const AddContest = () => {
                 name="contestDescription"
                 className="textarea textarea-bordered"
                 required
+                defaultValue={contestData?.data?.contestDescription}
               />
             </div>
             <div className="form-control">
@@ -189,6 +201,7 @@ const AddContest = () => {
                 name="taskSubmissionInstruction"
                 className="textarea textarea-bordered"
                 required
+                defaultValue={contestData?.data?.taskSubmissionInstruction}
               />
             </div>
             <div className="form-control">
@@ -201,6 +214,7 @@ const AddContest = () => {
                 className="input input-bordered"
                 name="contestDeadline"
                 required
+                defaultValue={contestData?.data?.contestDeadline}
               />
             </div>
             <div className="form-control">
@@ -213,6 +227,7 @@ const AddContest = () => {
                 className="input input-bordered"
                 name="contestStartingDate"
                 required
+                defaultValue={contestData?.data?.contestStartingDate}
               />
             </div>
             <div className="form-control">
@@ -225,12 +240,13 @@ const AddContest = () => {
                 className="input input-bordered"
                 name="contestStartingTime"
                 required
+                defaultValue={contestData?.data?.contestStartingTime}
               />
             </div>
             <div className="w-fit flex sm:flex-row flex-col gap-5 form-control mt-6">
               <input
                 type="submit"
-                value="Add"
+                value="Update"
                 className="bg-red-800 border-white hover:bg-white hover:border-red-800 btn flex-1 text-white hover:text-red-800"
               />
             </div>
@@ -241,4 +257,4 @@ const AddContest = () => {
   );
 };
 
-export default AddContest;
+export default UpdateContest;

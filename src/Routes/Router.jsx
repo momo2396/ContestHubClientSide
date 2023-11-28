@@ -12,6 +12,9 @@ import Contests from "../components/allContests/Contests";
 import RoleCheck from "./RoleCheck";
 import DetailsPage from "../components/detailsPageComp/DetailsPage";
 import AddContest from "../components/dashboard/AddContest";
+import UpdateContest from "../components/dashboard/UpdateContest";
+import MyContests from "../components/dashboard/MyContests";
+import SubmittedTask from "../components/dashboard/SubmittedTask";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -37,10 +40,7 @@ export const router = createBrowserRouter([
         path: "/details/:id",
         element: <DetailsPage></DetailsPage>,
       },
-      {
-        path: "/addContest",
-        element: <AddContest></AddContest>,
-      },
+
       {
         path: "/profile",
         element: (
@@ -76,6 +76,42 @@ export const router = createBrowserRouter([
         element: (
           <RoleCheck role={"admin"}>
             <AllContests></AllContests>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/addContest",
+        element: (
+          <RoleCheck role={"creator"}>
+            {" "}
+            <AddContest></AddContest>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/updateContest/:id",
+        element: (
+          <RoleCheck role={"creator"}>
+            {" "}
+            <UpdateContest></UpdateContest>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/myContests",
+        element: (
+          <RoleCheck role={"creator"}>
+            {" "}
+            <MyContests></MyContests>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/submittedTasks/:id",
+        element: (
+          <RoleCheck role={"creator"}>
+            {" "}
+            <SubmittedTask></SubmittedTask>
           </RoleCheck>
         ),
       },

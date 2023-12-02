@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useGetData from "../../Routes/useGetData";
 import { BsArrowRightShort } from "react-icons/bs";
 import React, { useEffect, useState } from "react";
@@ -7,42 +7,60 @@ const DetailsPage = () => {
   const location = useLocation();
   const { pathname } = location;
   const id = pathname.split("/").pop();
-  console.log(id);
   const { data, isLoading } = useGetData("/all-contests/single-contest/" + id);
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
-  const calculateTimeRemaining = () => {
-    const now = new Date().getTime();
-    const target = new Date(data?.contestDeadline).getTime();
-    const timeDifference = target - now;
-    if (timeDifference <= 0) {
-      clearInterval(intervalRef.current);
-      setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-    } else {
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor(
-        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-      setTime({ days, hours, minutes, seconds });
-    }
+  const getTime = (endTime) => {
+    const time = Date.parse(endTime) - Date.now();
+    setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+    setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+    setMinutes(Math.floor((time / 1000 / 60) % 60));
+    setSeconds(Math.floor((time / 1000) % 60));
   };
-  const [time, setTime] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const intervalRef = React.useRef();
+
   useEffect(() => {
-    calculateTimeRemaining();
-    intervalRef.current = setInterval(calculateTimeRemaining, 1000);
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  }, [time]);
+    const interval = setInterval(() => {
+      if (data?.contestDeadline) getTime(data?.contestDeadline);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [data]);
+  // const calculateTimeRemaining = () => {
+  //   const now = new Date().getTime();
+  //   const target = new Date(data?.contestDeadline).getTime();
+  //   const timeDifference = target - now;
+  //   if (timeDifference <= 0) {
+  //     clearInterval(intervalRef.current);
+  //     setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  //   } else {
+  //     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  //     const hours = Math.floor(
+  //       (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  //     );
+  //     const minutes = Math.floor(
+  //       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+  //     );
+  //     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+  //     setTime({ days, hours, minutes, seconds });
+  //   }
+  // };
+  // const [time, setTime] = useState({
+  //   days: 0,
+  //   hours: 0,
+  //   minutes: 0,
+  //   seconds: 0,
+  // });
+  // const intervalRef = React.useRef();
+  // useEffect(() => {
+  //   calculateTimeRemaining();
+  //   intervalRef.current = setInterval(calculateTimeRemaining, 1000);
+  //   return () => {
+  //     clearInterval(intervalRef.current);
+  //   };
+  // }, [time]);
 
   if (isLoading) return <progress className="progress w-56"></progress>;
   return (
@@ -55,7 +73,6 @@ const DetailsPage = () => {
             Participated: {data?.participatedCount}{" "}
             {data?.participatedCount <= 1 ? "person" : "people"}
           </p>
-          <p>Contest Created: {data?.contestCreationDate}</p>
           <img className="w-[700px]" src={data?.image} alt="" />
           <div className="flex flex-col lg:flex-row gap-5 items-start">
             <img
@@ -78,12 +95,13 @@ const DetailsPage = () => {
       </div>
       <div className="flex justify-end items-end">
         {new Date(data?.contestDeadline) > new Date() ? (
-          <button
+          <Link
+            to={`/payment/${id}`}
             className={`bg-red-600 text-white p-4 btn hover:text-red-600 hover:bg-white`}
           >
             {" "}
             Register Now <BsArrowRightShort className="text-xl" />
-          </button>
+          </Link>
         ) : (
           ""
         )}
@@ -107,25 +125,25 @@ const DetailsPage = () => {
         <p>Registration Deadline:</p>
         <div>
           <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": time?.days }}></span>
+            <span style={{ "--value": days }}></span>
           </span>
           days
         </div>
         <div>
           <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": time?.hours }}></span>
+            <span style={{ "--value": hours }}></span>
           </span>
           hours
         </div>
         <div>
           <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": time.minutes }}></span>
+            <span style={{ "--value": minutes }}></span>
           </span>
           min
         </div>
         <div>
           <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": time?.seconds }}></span>
+            <span style={{ "--value": seconds }}></span>
           </span>
           sec
         </div>
@@ -135,3 +153,46 @@ const DetailsPage = () => {
 };
 
 export default DetailsPage;
+
+// function Timer({endTime}){
+//   const [days, setDays] = useState(0);
+//   const [hours, setHours] = useState(0);
+//   const [minutes, setMinutes] = useState(0);
+//   const [seconds, setSeconds] = useState(0);
+
+//   const getTime = () => {
+//     const time = Date.parse(endTime) - Date.now();
+//     setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+//     setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+//     setMinutes(Math.floor((time / 1000 / 60) % 60));
+//     setSeconds(Math.floor((time / 1000) % 60));
+//   };
+
+//   useEffect(() => {
+//     const interval = setInterval(() => getTime(endTime), 1000);
+
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   return (
+//     <Box as='div' className="timer" role="timer" display={'flex'} justifyContent={'space-between'} color={'white'} pr={1} fontSize={'18px'}>
+
+//         <Box as='div' className="box">
+//           <Text id="day">{days < 10 ? "0" + days : days}</Text>
+//         </Box>
+//         <Text>:</Text>
+//         <Box as='div' className="box">
+//           <Text id="hour">{hours < 10 ? "0" + hours : hours}</Text>
+//         </Box>
+//         <Text>:</Text>
+//         <Box as='div' className="box">
+//           <Text id="minute">{minutes < 10 ? "0" + minutes : minutes}</Text>
+//         </Box>
+//         <Text>:</Text>
+//         <Box as='div' className="box">
+//           <Text id="second">{seconds < 10 ? "0" + seconds : seconds}s</Text>
+//         </Box>
+
+//     </Box>
+//   );
+// };

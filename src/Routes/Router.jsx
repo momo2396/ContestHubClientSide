@@ -15,6 +15,9 @@ import AddContest from "../components/dashboard/AddContest";
 import UpdateContest from "../components/dashboard/UpdateContest";
 import MyContests from "../components/dashboard/MyContests";
 import SubmittedTask from "../components/dashboard/SubmittedTask";
+import Payment from "../components/dashboard/Payment";
+import MyRegisteredContest from "../components/dashboard/MyRegisteredContest";
+import UserSubmittedTasks from "../components/dashboard/UserSubmittedTasks";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +42,18 @@ export const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <DetailsPage></DetailsPage>,
+      },
+      {
+        path: "/payment/:id",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "/myRegisteredContest",
+        element: <MyRegisteredContest></MyRegisteredContest>,
+      },
+      {
+        path: "/userSubmittedTasks",
+        element: <UserSubmittedTasks></UserSubmittedTasks>,
       },
 
       {
@@ -97,6 +112,15 @@ export const router = createBrowserRouter([
           </RoleCheck>
         ),
       },
+      // {
+      //   path: "/dashboard/payment",
+      //   element: (
+      //     <RoleCheck role={"user"}>
+      //       {" "}
+      //       <Payment></Payment>
+      //     </RoleCheck>
+      //   ),
+      // },
       {
         path: "/dashboard/myContests",
         element: (

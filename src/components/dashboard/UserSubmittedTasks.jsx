@@ -5,10 +5,15 @@ import { Link } from "react-router-dom";
 
 const UserSubmittedTasks = () => {
   const { user } = useContext(AuthContext);
-  const { data, isLoading, refetch } = useGetData(
+  const { data, isLoading } = useGetData(
     "/register-contest/particular-contests/" + user?.email
   );
-  console.log(data);
+  if (isLoading)
+    return (
+      <div className=" py-36 max-w-[1400px] mx-auto px-5">
+        <progress className="progress w-56 "></progress>
+      </div>
+    );
   return (
     <div className="max-w-[1400px] mx-auto px-5  py-36 pb-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

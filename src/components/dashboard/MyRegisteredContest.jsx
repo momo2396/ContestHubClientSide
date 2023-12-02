@@ -52,11 +52,11 @@ const MyRegisteredContest = () => {
               ></Card>
             )
         )}
-        <div className="pt-10">
-          <Link to="/userSubmittedTasks" className="underline text-blue-950">
-            Your Submitted Tasks
-          </Link>
-        </div>
+      </div>
+      <div className="pt-10">
+        <Link to="/userSubmittedTasks" className="underline text-blue-950">
+          Your Submitted Tasks
+        </Link>
       </div>
     </div>
   );

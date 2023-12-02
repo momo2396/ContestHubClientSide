@@ -18,6 +18,7 @@ import SubmittedTask from "../components/dashboard/SubmittedTask";
 import Payment from "../components/dashboard/Payment";
 import MyRegisteredContest from "../components/dashboard/MyRegisteredContest";
 import UserSubmittedTasks from "../components/dashboard/UserSubmittedTasks";
+import MyWinningContests from "../components/dashboard/MyWinningContests";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "/userSubmittedTasks",
         element: <UserSubmittedTasks></UserSubmittedTasks>,
+      },
+      {
+        path: "/userWinningContests",
+        element: <MyWinningContests></MyWinningContests>,
       },
 
       {

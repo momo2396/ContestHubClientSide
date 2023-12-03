@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
 import useGetData from "../../Routes/useGetData";
 import { useState } from "react";
 import PopularSingle from "../homeComp/popularSection/PopularSingle";
+import Pagination from "../shared/Pagination";
 
 const Contests = () => {
+  const [page, setPage] = useState(0);
   const [type, setType] = useState("All");
   const { data, isLoading, refetch } = useGetData("/all-contests/categories");
   const defaultClass =
@@ -11,31 +12,41 @@ const Contests = () => {
   const selectedClass = "border-gray-700";
   const unselectedClass = "border-transparent";
   if (isLoading) return <p></p>;
+
   return (
-    <div className="pt-32">
-      <div className="flex items-center  overflow-x-auto overflow-y-hidden justify-center flex-wrap">
-        <button
-          onClick={() => setType("All")}
-          className={`${defaultClass} ${
-            type === "All" ? selectedClass : unselectedClass
-          }`}
-        >
-          All
-        </button>
-        {data?.map((d) => (
+    <>
+      <div className="pt-10">
+        <div className="flex items-center  overflow-x-auto overflow-y-hidden justify-center flex-wrap">
           <button
-            onClick={() => setType(d)}
-            key={d}
+            onClick={() => setType("All")}
             className={`${defaultClass} ${
-              type === d ? selectedClass : unselectedClass
+              type === "All" ? selectedClass : unselectedClass
             }`}
           >
-            {d}
+            All
           </button>
-        ))}
+          {data?.slice(page * 10, page * 10 + 10).map((d) => (
+            <button
+              onClick={() => setType(d)}
+              key={d}
+              className={`${defaultClass} ${
+                type === d ? selectedClass : unselectedClass
+              }`}
+            >
+              {d}
+            </button>
+          ))}
+        </div>
+        <ContestCollection type={type}></ContestCollection>
       </div>
-      <ContestCollection type={type}></ContestCollection>
-    </div>
+      {data?.length && (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          length={data?.length}
+        ></Pagination>
+      )}
+    </>
   );
 };
 

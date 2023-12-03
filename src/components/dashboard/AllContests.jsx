@@ -7,7 +7,6 @@ import Pagination from "../shared/Pagination";
 
 const AllContests = () => {
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(4);
   const { data, isLoading, refetch } = useGetData("/all-contests");
   const handleConfirm = async (c, confirmed) => {
     const res = await fetch(
@@ -61,7 +60,7 @@ const AllContests = () => {
               </thead>
 
               <tbody>
-                {data?.slice(page * limit, page * limit + limit).map((c) => (
+                {data?.slice(page * 10, page * 10 + 10).map((c) => (
                   <>
                     <tr
                       className="border-b border-opacity-20 dark:border-gray-500 "
@@ -111,7 +110,6 @@ const AllContests = () => {
       <Pagination
         setPage={setPage}
         page={page}
-        limit={limit}
         length={data?.length}
       ></Pagination>
     </>

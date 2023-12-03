@@ -1,4 +1,4 @@
-const Pagination = ({ setPage, page, limit, length }) => {
+const Pagination = ({ setPage, page, limit = 10, length }) => {
   const pages = Math.ceil(length / limit);
   return (
     <div className="flex flex-row gap-4 justify-center items-center mt-10">

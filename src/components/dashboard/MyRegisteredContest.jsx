@@ -4,13 +4,15 @@ import useGetData, { backendURL } from "../../Routes/useGetData";
 import { AuthContext } from "../../providers/AuthProviders";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Pagination from "../shared/Pagination";
 const toast = () => {
   Swal.fire("Your Task Submission Date has been Expired!");
 };
 const MyRegisteredContest = () => {
+  const [page, setPage] = useState(0);
   const { user } = useContext(AuthContext);
   const { data, isLoading, refetch } = useGetData(
-    "/register-contest/particular-contests/" + user?.email
+    "/register-contest/particular-contests/" + user?.userEmail
   );
 
   const handleSubmitTask = async (id, task) => {
@@ -20,7 +22,7 @@ const MyRegisteredContest = () => {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        userEmail: user?.email,
+        userEmail: user?.userEmail,
         contestId: id,
         submitted: true,
         submittedTask: task,
@@ -39,29 +41,39 @@ const MyRegisteredContest = () => {
       </div>
     );
   return (
-    <div className="max-w-[1400px] mx-auto px-5  py-36 pb-10">
-      <h2 className="text-2xl">Upcoming Contests</h2>
-      <div className="flex flex-col gap-5">
-        {data?.map(
-          (d) =>
-            !d?.submitted && (
-              <Card
-                key={d?.contest?._id}
-                d={d}
-                handleSubmitTask={handleSubmitTask}
-              ></Card>
-            )
-        )}
+    <>
+      {" "}
+      <div className="flex flex-col justify-center items-center max-w-[1400px] mx-auto px-5  py-36 pb-10">
+        {data?.length && <h2 className="text-2xl">Upcoming Contests</h2>}
+        <div className="flex flex-col gap-5">
+          {data
+            ?.slice(page * 10, page * 10 + 10)
+            .map(
+              (d) =>
+                !d?.submitted && (
+                  <Card
+                    key={d?.contest?._id}
+                    d={d}
+                    handleSubmitTask={handleSubmitTask}
+                  ></Card>
+                )
+            )}
+        </div>
+        <div className="pt-10">
+          <Link
+            to="/dashboard/userSubmittedTasks"
+            className="underline text-blue-950"
+          >
+            Your Submitted Tasks
+          </Link>
+        </div>
       </div>
-      <div className="pt-10">
-        <Link
-          to="/dashboard/userSubmittedTasks"
-          className="underline text-blue-950"
-        >
-          Your Submitted Tasks
-        </Link>
-      </div>
-    </div>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        length={data?.length}
+      ></Pagination>
+    </>
   );
 };
 

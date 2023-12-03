@@ -25,7 +25,7 @@ const AddContest = () => {
     const winnerImage = "";
     const confirmed = false;
     const participatedCount = 0;
-    const newFood = {
+    const newContest = {
       contestName,
       contestType,
       image,
@@ -48,7 +48,7 @@ const AddContest = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newFood),
+      body: JSON.stringify(newContest),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -99,7 +99,7 @@ const AddContest = () => {
                 type="text"
                 placeholder="name"
                 name="contestCreatorName"
-                defaultValue={user?.displayName}
+                defaultValue={user?.userName}
                 className="input input-bordered"
                 readOnly
               />
@@ -112,7 +112,7 @@ const AddContest = () => {
                 type="text"
                 placeholder="name"
                 name="contestCreatorMail"
-                defaultValue={user?.email}
+                defaultValue={user?.userEmail}
                 className="input input-bordered"
                 readOnly
               />

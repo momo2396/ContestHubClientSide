@@ -10,6 +10,8 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import axios from "axios";
+import { backendURL } from "../Routes/useGetData";
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -46,9 +48,16 @@ const AuthProviders = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      console.log(currentUser);
-      setLoading(false);
+      axios
+        .get(backendURL + "/all-users/" + currentUser?.email)
+        .then((result) => {
+          setUser(result?.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setUser(null);
+          setLoading(false);
+        });
     });
     return () => {
       return unSubscribe();
@@ -63,6 +72,7 @@ const AuthProviders = ({ children }) => {
     logOut,
     updateUserProfile,
     loginWithGoogle,
+    setUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

@@ -4,7 +4,7 @@ const PopularSingle = ({ c }) => {
   const word = c?.contestDescription.split(" ");
   const shortDescription = word.slice(0, 5).join(" ");
   return (
-    <div className="flex flex-col w-[400px] lg:w-[500px]  p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-[#e9c46a] text-gray-600">
+    <div className="flex flex-col w-full  p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-[#e9c46a] text-gray-600">
       <div className="flex  space-x-4">
         <img
           alt=""

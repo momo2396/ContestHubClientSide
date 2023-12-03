@@ -11,10 +11,19 @@ const Dashboard = () => {
       .then(() => {})
       .catch((error) => console.log(error));
   };
-  const { data, isLoading } = useGetData("/all-users/" + user?.email);
+  const { data, isLoading } = useGetData("/all-users/" + user?.userEmail);
   if (isLoading) return <progress className="progress w-56"></progress>;
   const adminMenu = (
     <>
+      <li>
+        <Link
+          to="/dashboard/profile"
+          className="flex items-center p-2 space-x-3 rounded-md"
+        >
+          <FiUsers />
+          <span>Profile</span>
+        </Link>
+      </li>
       <li>
         <Link
           to="/dashboard/users"
@@ -37,6 +46,15 @@ const Dashboard = () => {
   );
   const creatorMenu = (
     <>
+      <li>
+        <Link
+          to="/dashboard/profile"
+          className="flex items-center p-2 space-x-3 rounded-md"
+        >
+          <FiUsers />
+          <span>Profile</span>
+        </Link>
+      </li>
       <li>
         <Link
           to="/dashboard/myContests"
@@ -62,6 +80,15 @@ const Dashboard = () => {
     <>
       <li>
         <Link
+          to="/dashboard/profile"
+          className="flex items-center p-2 space-x-3 rounded-md"
+        >
+          <FiUsers />
+          <span>Profile</span>
+        </Link>
+      </li>
+      <li>
+        <Link
           to="/dashboard/myWinningContests"
           className="flex items-center p-2 space-x-3 rounded-md"
         >
@@ -69,10 +96,19 @@ const Dashboard = () => {
           <span>My Winning Contests</span>
         </Link>
       </li>
+      <li>
+        <Link
+          to="/dashboard/myRegisteredContest"
+          className="flex items-center p-2 space-x-3 rounded-md"
+        >
+          <BsCalendar2EventFill />
+          <span>My Registered Contests</span>
+        </Link>
+      </li>
     </>
   );
   return (
-    <div className="flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
@@ -146,7 +182,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="px-1  max-w-[1300px] mx-auto">
+      <div className="px-1 mx-auto max-w-[1400px] w-full">
         <Outlet></Outlet>
       </div>
     </div>

@@ -32,7 +32,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className=" navbar bg-[#2a9d8f] fixed z-50 text-white bg-opacity-80 ">
+    <div className="px-5 navbar bg-[#2a9d8f] sticky top-0 w-full z-50 text-white bg-opacity-80">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -53,7 +53,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52  text-black"
           >
             {navOptions}
           </ul>
@@ -63,13 +63,13 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+        <ul className="menu menu-horizontal px-1 gap-10">{navOptions}</ul>
       </div>
       <div className="navbar-end">
         {user ? (
           <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
             <div className="flex flex-row justify-center items-center gap-5 ">
-              <div className="dropdown dropdown-bottom dropdown-end">
+              <div className="dropdown dropdown-bottom dropdown-end relative -left-5">
                 <label tabIndex={0} className=" m-1">
                   <img
                     className="w-10 h-10 rounded-full border-2 border-blue-500 p-0.5"
@@ -80,10 +80,7 @@ const Navbar = () => {
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <div className="text-red-700">{user?.displayName}</div>
-                  <Link to="/orderedPage">Your Ordered Foods</Link>
-                  <Link to="/addedFood">Your Added Page</Link>
-                  <Link to="/addFood">Add a Food </Link>
+                  <div className="text-red-700">{user?.userName}</div>
                   <div>
                     <button
                       className="btn bg-[#a294cd] border-[#a294cd]"

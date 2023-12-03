@@ -5,7 +5,7 @@ import useGetData from "./useGetData";
 
 const RoleCheck = ({ children, role }) => {
   const { user } = useContext(AuthContext);
-  const { data, isLoading } = useGetData(`/all-users/${user?.email}`);
+  const { data, isLoading } = useGetData(`/all-users/${user?.userEmail}`);
   if (isLoading) {
     return (
       <progress className="progress w-56 flex justify-center items-center"></progress>

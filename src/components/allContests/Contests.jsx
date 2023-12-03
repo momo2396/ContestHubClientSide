@@ -10,10 +10,10 @@ const Contests = () => {
     "flex items-center flex-shrink-0 px-5 py-2 border-b-4  text-gray-400";
   const selectedClass = "border-gray-700";
   const unselectedClass = "border-transparent";
-  if (isLoading) return <p>,,,,</p>;
+  if (isLoading) return <p></p>;
   return (
     <div className="pt-32">
-      <div className="flex items-center -mx-4 space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap">
+      <div className="flex items-center  overflow-x-auto overflow-y-hidden justify-center flex-wrap">
         <button
           onClick={() => setType("All")}
           className={`${defaultClass} ${

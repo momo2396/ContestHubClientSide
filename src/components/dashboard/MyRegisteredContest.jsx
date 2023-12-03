@@ -54,7 +54,10 @@ const MyRegisteredContest = () => {
         )}
       </div>
       <div className="pt-10">
-        <Link to="/userSubmittedTasks" className="underline text-blue-950">
+        <Link
+          to="/dashboard/userSubmittedTasks"
+          className="underline text-blue-950"
+        >
           Your Submitted Tasks
         </Link>
       </div>

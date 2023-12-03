@@ -22,7 +22,7 @@ const Popular = () => {
   return (
     <Swiper
       loop={true}
-      slidesPerView={2}
+      slidesPerView={1}
       // centeredSlides={true}
       autoplay={{
         delay: 1500,
@@ -32,6 +32,20 @@ const Popular = () => {
       grabCursor={true}
       pagination={{
         clickable: true,
+      }}
+      breakpoints={{
+        600: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
       }}
       modules={[Pagination, Autoplay]}
       className="mySwiper max-w-[1200px] mx-auto"

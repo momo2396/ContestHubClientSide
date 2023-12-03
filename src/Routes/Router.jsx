@@ -4,7 +4,7 @@ import Home from "../components/homeComp/Home";
 import Login from "../components/loginComp/Login";
 import Register from "../components/registerComp/Register";
 import PrivateRoute from "./PrivateRoute";
-import Profile from "../components/Profile";
+import Profile from "../components/dashboard/Profile";
 import Dashboard from "../components/dashboard/Dashboard";
 import Users from "../components/dashboard/Users";
 import AllContests from "../components/dashboard/AllContests";
@@ -49,31 +49,6 @@ export const router = createBrowserRouter([
         path: "/payment/:id",
         element: <Payment></Payment>,
       },
-      {
-        path: "/myRegisteredContest",
-        element: <MyRegisteredContest></MyRegisteredContest>,
-      },
-      {
-        path: "/userSubmittedTasks",
-        element: <UserSubmittedTasks></UserSubmittedTasks>,
-      },
-      {
-        path: "/userWinningContests",
-        element: <MyWinningContests></MyWinningContests>,
-      },
-      {
-        path: "/pie",
-        element: <MyPieChart></MyPieChart>,
-      },
-
-      {
-        path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile></Profile>
-          </PrivateRoute>
-        ),
-      },
     ],
   },
   {
@@ -87,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <p>select option </p>,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile></Profile>,
       },
       {
         path: "/dashboard/users",
@@ -146,6 +125,30 @@ export const router = createBrowserRouter([
           <RoleCheck role={"creator"}>
             {" "}
             <SubmittedTask></SubmittedTask>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/myWinningContests",
+        element: (
+          <RoleCheck role={"user"}>
+            <MyWinningContests></MyWinningContests>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/myRegisteredContest",
+        element: (
+          <RoleCheck role={"user"}>
+            <MyRegisteredContest></MyRegisteredContest>
+          </RoleCheck>
+        ),
+      },
+      {
+        path: "/dashboard/userSubmittedTasks",
+        element: (
+          <RoleCheck role={"user"}>
+            <UserSubmittedTasks></UserSubmittedTasks>
           </RoleCheck>
         ),
       },

@@ -30,11 +30,14 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    signIn(email, password).then(() => {
-      Swal.fire("Logged In!", "You logged in successfully!", "success");
-    });
-    navigate(from, { replace: true });
+    signIn(email, password)
+      .then(() => {
+        Swal.fire("Logged In!", "You logged in successfully!", "success");
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        Swal.fire(error?.message);
+      });
   };
   return (
     <div>

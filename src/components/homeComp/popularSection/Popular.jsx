@@ -20,44 +20,51 @@ const Popular = () => {
       });
   }, [contests]);
   return (
-    <Swiper
-      loop={true}
-      slidesPerView={1}
-      // centeredSlides={true}
-      autoplay={{
-        delay: 1500,
-        disableOnInteraction: false,
-      }}
-      spaceBetween={20}
-      grabCursor={true}
-      pagination={{
-        clickable: true,
-      }}
-      breakpoints={{
-        600: {
-          slidesPerView: 1,
-          spaceBetween: 10,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-      }}
-      modules={[Pagination, Autoplay]}
-      className="mySwiper max-w-[1200px] mx-auto"
-    >
-      {contests?.map((c) => (
-        <>
-          <SwiperSlide>
-            <PopularSingle key={c?._id} c={c}></PopularSingle>
-          </SwiperSlide>
-        </>
-      ))}
-    </Swiper>
+    <>
+      <div className="pt-10 text-3xl font-bold text-center pb-20">
+        Popular Contests
+      </div>
+      <Swiper
+        loop={true}
+        slidesPerView={1}
+        // centeredSlides={true}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
+        spaceBetween={20}
+        grabCursor={true}
+        pagination={{
+          clickable: true,
+        }}
+        breakpoints={{
+          600: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 30,
+          },
+        }}
+        modules={[Pagination, Autoplay]}
+        className="mySwiper max-w-[1200px] mx-auto"
+      >
+        {contests
+          ?.filter((f) => f?.confirmed === true)
+          .map((c) => (
+            <>
+              <SwiperSlide>
+                <PopularSingle key={c?._id} c={c}></PopularSingle>
+              </SwiperSlide>
+            </>
+          ))}
+      </Swiper>
+    </>
   );
 };
 

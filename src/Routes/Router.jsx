@@ -21,6 +21,7 @@ import UserSubmittedTasks from "../components/dashboard/UserSubmittedTasks";
 import MyWinningContests from "../components/dashboard/MyWinningContests";
 import Leader from "../components/leaderComp/Leader";
 import TimeVisualization from "../components/timeVisualizationComp/TimeVisualization";
+import Search from "../components/homeComp/Search";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
         element: <TimeVisualization></TimeVisualization>,
       },
       {
+        path: "/search/:search",
+        element: <Search></Search>,
+      },
+      {
         path: "/details/:id",
         element: (
           <PrivateRoute>
@@ -74,7 +79,9 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <p>select option </p>,
+        element: (
+          <p className="text-center text-3xl font-bold mt-20">Select option </p>
+        ),
       },
       {
         path: "/dashboard/profile",

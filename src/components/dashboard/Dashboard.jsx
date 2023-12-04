@@ -136,7 +136,18 @@ const Dashboard = () => {
               </label>
             </div>
             <div className="flex-1 px-2 mx-2">
-              <Link to="/">ContestHub</Link>
+              <Link
+                to="/"
+                className="flex items-center gap-3 font-bold normal-case text-3xl"
+              >
+                <p className="p-2 pl-3 text-2xl lg:text-5xl  bg-gradient-to-r to-[#b40000] from-[#540000] font-bold text-white rounded-l-2xl">
+                  CH
+                </p>
+                <div className="bg-clip-text text-lg text-transparent bg-gradient-to-r to-[#540000] from-[#b40000]">
+                  <p>Contest</p>
+                  <p>Hub</p>
+                </div>
+              </Link>
             </div>
             <div className="flex-none hidden lg:block">
               <ul className="menu menu-horizontal flex gap-10">
@@ -164,7 +175,18 @@ const Dashboard = () => {
 
           <ul className="menu p-4 w-80 min-h-full bg-base-200">
             {/* Sidebar content here */}
-            <Link to="/">ContestHub</Link>
+            <Link
+              to="/"
+              className="flex items-center gap-3 font-bold normal-case text-3xl"
+            >
+              <p className="p-2 pl-3 text-2xl lg:text-5xl  bg-gradient-to-r to-[#b40000] from-[#540000] font-bold text-white rounded-l-2xl">
+                CH
+              </p>
+              <div className="bg-clip-text text-lg text-transparent bg-gradient-to-r to-[#540000] from-[#b40000]">
+                <p>Contest</p>
+                <p>Hub</p>
+              </div>
+            </Link>
             <div className="divider lg:divider-horizontal "></div>
             {data?.status === "admin" && adminMenu}
             {data?.status === "creator" && creatorMenu}

@@ -21,6 +21,7 @@ const MyContests = () => {
     Swal.fire("Good job!", "Contest has been deleted successfully!", "success");
     refetch();
   };
+  console.log(data);
   if (isLoading) return <progress className="progress w-56"></progress>;
   return (
     <>

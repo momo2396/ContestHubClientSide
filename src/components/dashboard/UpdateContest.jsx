@@ -105,7 +105,7 @@ const UpdateContest = () => {
                 type="text"
                 placeholder="name"
                 name="contestCreatorName"
-                defaultValue={user?.displayName}
+                defaultValue={user?.userName}
                 className="input input-bordered"
                 readOnly
               />
@@ -118,7 +118,7 @@ const UpdateContest = () => {
                 type="text"
                 placeholder="name"
                 name="contestCreatorMail"
-                defaultValue={user?.email}
+                defaultValue={user?.userEmail}
                 className="input input-bordered"
                 readOnly
               />

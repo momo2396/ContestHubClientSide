@@ -62,8 +62,17 @@ const Navbar = () => {
             {navOptions}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
-          Contest
+        <Link
+          to="/"
+          className="flex items-center gap-3 font-bold normal-case text-3xl"
+        >
+          <p className="p-2 pl-3 text-2xl lg:text-5xl  bg-gradient-to-r to-[#b40000] from-[#540000] font-bold text-white rounded-l-2xl">
+            CH
+          </p>
+          <div className="bg-clip-text text-lg text-transparent bg-gradient-to-r to-[#540000] from-[#b40000]">
+            <p>Contest</p>
+            <p>Hub</p>
+          </div>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex justify-center items-center">

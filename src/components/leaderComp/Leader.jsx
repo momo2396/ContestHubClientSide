@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGetData from "../../Routes/useGetData";
 import Pagination from "../shared/Pagination";
 
 const Leader = () => {
   const [page, setPage] = useState(0);
   const { data, isLoading } = useGetData("/all-contests/all-winners");
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    if (data?.length > 0) {
+      const temp = data?.filter((f) => f?.user?.status === "user");
+      setUsers(temp);
+    }
+  }, [isLoading]);
   if (isLoading)
     return (
       <progress className="max-w-[1400px] mx-auto progress w-56"></progress>
@@ -22,7 +29,7 @@ const Leader = () => {
             </tr>
           </thead>
           <tbody className="text-center">
-            {data?.slice(page * 10, page * 10 + 10).map((d) => (
+            {users?.slice(page * 10, page * 10 + 10).map((d) => (
               <tr
                 key={d?._id}
                 d={d}

@@ -133,7 +133,8 @@ const TimeVisualization = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 px-10">
         {contests?.length > 0 &&
           contests
-            ?.slice(page * 10, page * 10 + 10)
+            ?.filter((f) => f?.confirmed === true)
+            .slice(page * 10, page * 10 + 10)
             .map((c) => <PopularSingle key={c?._id} c={c}></PopularSingle>)}
       </div>
       {contests?.length > 0 ? (

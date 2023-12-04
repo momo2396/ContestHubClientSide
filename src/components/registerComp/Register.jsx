@@ -57,7 +57,6 @@ const Register = () => {
   };
   return (
     <div>
-      <Nav></Nav>
       <section className="p-6 dark:text-gray-50 dark:bg-gray-900">
         <form
           onSubmit={handleSubmit(onSubmit)}

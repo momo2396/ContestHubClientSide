@@ -45,20 +45,24 @@ const MyRegisteredContest = () => {
       {" "}
       <div className="flex flex-col justify-center items-center max-w-[1400px] mx-auto px-5  py-36 pb-10">
         {data?.length > 0 && <h2 className="text-2xl">Upcoming Contests</h2>}
-        <div className="flex flex-col gap-5">
-          {data
-            ?.slice(page * 10, page * 10 + 10)
-            .map(
-              (d) =>
-                !d?.submitted && (
-                  <Card
-                    key={d?.contest?._id}
-                    d={d}
-                    handleSubmitTask={handleSubmitTask}
-                  ></Card>
-                )
-            )}
-        </div>
+        {data?.length > 0 ? (
+          <div className="flex flex-col gap-5">
+            {data
+              ?.slice(page * 10, page * 10 + 10)
+              .map(
+                (d) =>
+                  !d?.submitted && (
+                    <Card
+                      key={d?.contest?._id}
+                      d={d}
+                      handleSubmitTask={handleSubmitTask}
+                    ></Card>
+                  )
+              )}
+          </div>
+        ) : (
+          <p className="text-3xl font-bold">No Registered Contests.</p>
+        )}
         <div className="pt-10">
           <Link
             to="/dashboard/userSubmittedTasks"
@@ -68,11 +72,13 @@ const MyRegisteredContest = () => {
           </Link>
         </div>
       </div>
-      <Pagination
-        page={page}
-        setPage={setPage}
-        length={data?.length}
-      ></Pagination>
+      {data?.length > 0 && (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          length={data?.length}
+        ></Pagination>
+      )}
     </>
   );
 };

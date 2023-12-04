@@ -15,7 +15,7 @@ const UserSubmittedTasks = () => {
     let temp = 0;
     if (data) {
       data?.forEach((d) => {
-        if (d?.winnerEmail === user?.userEmail) temp++;
+        if (d?.submitted === true) temp++;
       });
     }
     setCount(temp);

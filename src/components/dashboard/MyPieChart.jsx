@@ -50,7 +50,16 @@ const MyPieChart = () => {
           Attemption 0. Participate in contests
         </p>
       ) : (
-        <MyPie></MyPie>
+        <>
+          {" "}
+          <MyPie></MyPie>
+          <div className="text-center text-2xl font-semibold">
+            {" "}
+            <p>Winning: {winning * 100}%</p>
+            <p>Lost: {lost * 100}%</p>
+            <p>Attempted: {data?.attempted} Contests</p>
+          </div>
+        </>
       )}
     </div>
   );

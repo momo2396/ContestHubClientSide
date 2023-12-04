@@ -26,8 +26,8 @@ const MyWinningContests = () => {
 
   return (
     <>
-      <div className="mt-20 max-w-[98vw] bg-black">
-        <div className="p-10 mx-auto text-white flex flex-col justify-center items-center">
+      <div className="text-white mt-20 max-w-[98vw] bg-black">
+        <div className="p-10 mx-auto flex flex-col justify-center items-center">
           <div className="overflow-x-auto">
             {/* <h2>My Winning Contests</h2> */}
             {count > 0 ? (
@@ -67,16 +67,18 @@ const MyWinningContests = () => {
                 </tbody>
               </table>
             ) : (
-              <p className="text-black text-2xl">No Winning</p>
+              <p className="text-white text-2xl">No Winning Yet..</p>
             )}
           </div>
         </div>
       </div>
-      <Pagination
-        page={page}
-        setPage={setPage}
-        length={data?.length}
-      ></Pagination>
+      {count > 0 && (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          length={data?.length}
+        ></Pagination>
+      )}
     </>
   );
 };

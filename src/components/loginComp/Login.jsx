@@ -40,8 +40,7 @@ const Login = () => {
       });
   };
   return (
-    <div>
-      <Nav></Nav>
+    <div className="pb-32 pt-20">
       <section className="container mx-auto p-10 dark:text-gray-50 dark:bg-gray-900">
         <form
           onSubmit={handleLogin}

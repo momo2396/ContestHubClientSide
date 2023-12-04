@@ -18,7 +18,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  console.log(user);
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -51,7 +51,14 @@ const AuthProviders = ({ children }) => {
       axios
         .get(backendURL + "/all-users/" + currentUser?.email)
         .then((result) => {
-          setUser(result?.data);
+          if (result?.data?.userEmail) {
+            setUser(result?.data);
+
+            localStorage.setItem("access_token", result?.data?.token);
+          } else {
+            setUser(null);
+          }
+
           setLoading(false);
         })
         .catch(() => {

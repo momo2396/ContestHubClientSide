@@ -8,7 +8,7 @@ const PopularSingle = ({ c }) => {
       <div className="flex  space-x-4">
         <img
           alt=""
-          src={c?.contentCreatorImage}
+          src={c?.contestCreatorImage}
           className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500"
         />
         <div className="flex flex-col space-y-1">
@@ -19,7 +19,7 @@ const PopularSingle = ({ c }) => {
           <span className="text-xs">
             Contact the Creator: {c?.contestCreatorMail}
           </span>
-          <span className="text-xs ">Posted: {c?.contestCreationDate}</span>
+          {/* <span className="text-xs ">Posted: {c?.contestCreationDate}</span> */}
         </div>
       </div>
       <div>

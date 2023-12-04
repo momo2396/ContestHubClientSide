@@ -31,14 +31,18 @@ const BestCreators = () => {
           >
             <div className="flex flex-col text-lg font-bold">
               <div className="flex gap-5">
-                <img src={d?.contestCreatorImage} alt="" />
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={d?.contestCreatorImage}
+                  alt=""
+                />
                 <p>{d?.contestCreatorName}</p>
               </div>
               <p>{d?.contestCreatorMail}</p>
             </div>
             <div className="pt-5 flex gap-3">
-              <p> #{d?.contestType}</p>
-              <p>{d?.contestName}</p>
+              <p className="text-red-700 text-lg"> #{d?.contestType}</p>
+              <p className="text-lg font-medium">{d?.contestName}</p>
             </div>
             <div>
               <p>{d?.contestDescription.split(" ").slice(0, 5).join(" ")}...</p>

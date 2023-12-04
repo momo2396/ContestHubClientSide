@@ -16,8 +16,7 @@ const AddContest = () => {
     const contestCreatorMail = form.contestCreatorMail.value;
     const contestCreatorImage = form.contestCreatorImage.value;
     const contestPrize = form.contestPrize.value;
-    const contestStartingTime = form.contestStartingTime.value;
-    const contestStartingDate = form.contestStartingDate.value;
+
     const contestDescription = form.contestDescription.value;
     const contestDeadline = form.contestDeadline.value;
     const taskSubmissionInstruction = form.contestDescription.value;
@@ -33,8 +32,7 @@ const AddContest = () => {
       contestCreatorMail,
       contestCreatorImage,
       contestPrize,
-      contestStartingDate,
-      contestStartingTime,
+
       contestDescription,
       contestDeadline,
       taskSubmissionInstruction,
@@ -203,7 +201,7 @@ const AddContest = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            {/* <div className="form-control">
               <label className="label">
                 <span className="label-text">Starting Date</span>
               </label>
@@ -214,8 +212,8 @@ const AddContest = () => {
                 name="contestStartingDate"
                 required
               />
-            </div>
-            <div className="form-control">
+            </div> */}
+            {/* <div className="form-control">
               <label className="label">
                 <span className="label-text">Starting Time</span>
               </label>
@@ -226,7 +224,7 @@ const AddContest = () => {
                 name="contestStartingTime"
                 required
               />
-            </div>
+            </div> */}
             <div className="w-fit flex sm:flex-row flex-col gap-5 form-control mt-6">
               <input
                 type="submit"

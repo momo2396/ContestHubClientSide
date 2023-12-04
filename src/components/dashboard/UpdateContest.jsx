@@ -22,8 +22,7 @@ const UpdateContest = () => {
     const contestCreatorMail = form.contestCreatorMail.value;
     const contestCreatorImage = form.contestCreatorImage.value;
     const contestPrize = form.contestPrize.value;
-    const contestStartingTime = form.contestStartingTime.value;
-    const contestStartingDate = form.contestStartingDate.value;
+
     const contestDescription = form.contestDescription.value;
     const contestDeadline = form.contestDeadline.value;
     const taskSubmissionInstruction = form.contestDescription.value;
@@ -39,8 +38,7 @@ const UpdateContest = () => {
       contestCreatorMail,
       contestCreatorImage,
       contestPrize,
-      contestStartingDate,
-      contestStartingTime,
+
       contestDescription,
       contestDeadline,
       taskSubmissionInstruction,
@@ -217,7 +215,7 @@ const UpdateContest = () => {
                 defaultValue={contestData?.data?.contestDeadline}
               />
             </div>
-            <div className="form-control">
+            {/* <div className="form-control">
               <label className="label">
                 <span className="label-text">Starting Date</span>
               </label>
@@ -229,8 +227,8 @@ const UpdateContest = () => {
                 required
                 defaultValue={contestData?.data?.contestStartingDate}
               />
-            </div>
-            <div className="form-control">
+            </div> */}
+            {/* <div className="form-control">
               <label className="label">
                 <span className="label-text">Starting Time</span>
               </label>
@@ -242,7 +240,7 @@ const UpdateContest = () => {
                 required
                 defaultValue={contestData?.data?.contestStartingTime}
               />
-            </div>
+            </div> */}
             <div className="w-fit flex sm:flex-row flex-col gap-5 form-control mt-6">
               <input
                 type="submit"

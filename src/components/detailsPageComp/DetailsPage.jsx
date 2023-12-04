@@ -1,9 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
-import useGetData from "../../Routes/useGetData";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useGetData, { backendURL } from "../../Routes/useGetData";
 import { BsArrowRightShort } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
+import Swal from "sweetalert2";
 
 const DetailsPage = () => {
+  const { user } = useContext(AuthContext);
   const location = useLocation();
   const { pathname } = location;
   const id = pathname.split("/").pop();
@@ -12,7 +15,7 @@ const DetailsPage = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-
+  const navigate = useNavigate();
   const getTime = (endTime) => {
     const time = Date.parse(endTime) - Date.now();
     setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
@@ -21,6 +24,9 @@ const DetailsPage = () => {
     setSeconds(Math.floor((time / 1000) % 60));
   };
 
+  const query = useGetData(
+    "/register-contest/particular-contests/" + user?.userEmail
+  );
   useEffect(() => {
     const interval = setInterval(() => {
       if (data?.contestDeadline) getTime(data?.contestDeadline);
@@ -28,39 +34,40 @@ const DetailsPage = () => {
 
     return () => clearInterval(interval);
   }, [data]);
-  // const calculateTimeRemaining = () => {
-  //   const now = new Date().getTime();
-  //   const target = new Date(data?.contestDeadline).getTime();
-  //   const timeDifference = target - now;
-  //   if (timeDifference <= 0) {
-  //     clearInterval(intervalRef.current);
-  //     setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  //   } else {
-  //     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  //     const hours = Math.floor(
-  //       (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  //     );
-  //     const minutes = Math.floor(
-  //       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-  //     );
-  //     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-  //     setTime({ days, hours, minutes, seconds });
-  //   }
-  // };
-  // const [time, setTime] = useState({
-  //   days: 0,
-  //   hours: 0,
-  //   minutes: 0,
-  //   seconds: 0,
-  // });
-  // const intervalRef = React.useRef();
-  // useEffect(() => {
-  //   calculateTimeRemaining();
-  //   intervalRef.current = setInterval(calculateTimeRemaining, 1000);
-  //   return () => {
-  //     clearInterval(intervalRef.current);
-  //   };
-  // }, [time]);
+
+  const handleRegisterContest = async () => {
+    const exist = query?.data?.find((d) => d?.contestId === id);
+    if (exist) {
+      Swal.fire({
+        title: "Error!",
+        text: "You already registered for the contest!",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+      return;
+    }
+    const registrationData = {
+      contestId: id,
+      userEmail: user?.userEmail,
+      submitted: false,
+    };
+    const res = await fetch(backendURL + "/register-contest", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(registrationData),
+    });
+    const resdata = await res.json();
+    Swal.fire({
+      title: "Success!",
+      text: "You registered for the contest!",
+      icon: "success",
+      confirmButtonText: "Cool",
+    });
+
+    navigate("/dashboard/myRegisteredContest");
+  };
 
   if (isLoading) return <progress className="progress w-56"></progress>;
   return (
@@ -94,14 +101,15 @@ const DetailsPage = () => {
         <p>Instruction: {data?.taskSubmissionInstruction}</p>
       </div>
       <div className="flex justify-end items-end">
-        {new Date(data?.contestDeadline) > new Date() ? (
-          <Link
-            to={`/payment/${id}`}
+        {new Date(data?.contestDeadline) > new Date() &&
+        user?.status === "user" ? (
+          <button
+            onClick={handleRegisterContest}
             className={`bg-red-600 text-white p-4 btn hover:text-red-600 hover:bg-white`}
           >
             {" "}
             Register Now <BsArrowRightShort className="text-xl" />
-          </Link>
+          </button>
         ) : (
           ""
         )}
@@ -153,46 +161,3 @@ const DetailsPage = () => {
 };
 
 export default DetailsPage;
-
-// function Timer({endTime}){
-//   const [days, setDays] = useState(0);
-//   const [hours, setHours] = useState(0);
-//   const [minutes, setMinutes] = useState(0);
-//   const [seconds, setSeconds] = useState(0);
-
-//   const getTime = () => {
-//     const time = Date.parse(endTime) - Date.now();
-//     setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-//     setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-//     setMinutes(Math.floor((time / 1000 / 60) % 60));
-//     setSeconds(Math.floor((time / 1000) % 60));
-//   };
-
-//   useEffect(() => {
-//     const interval = setInterval(() => getTime(endTime), 1000);
-
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   return (
-//     <Box as='div' className="timer" role="timer" display={'flex'} justifyContent={'space-between'} color={'white'} pr={1} fontSize={'18px'}>
-
-//         <Box as='div' className="box">
-//           <Text id="day">{days < 10 ? "0" + days : days}</Text>
-//         </Box>
-//         <Text>:</Text>
-//         <Box as='div' className="box">
-//           <Text id="hour">{hours < 10 ? "0" + hours : hours}</Text>
-//         </Box>
-//         <Text>:</Text>
-//         <Box as='div' className="box">
-//           <Text id="minute">{minutes < 10 ? "0" + minutes : minutes}</Text>
-//         </Box>
-//         <Text>:</Text>
-//         <Box as='div' className="box">
-//           <Text id="second">{seconds < 10 ? "0" + seconds : seconds}s</Text>
-//         </Box>
-
-//     </Box>
-//   );
-// };

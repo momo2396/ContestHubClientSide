@@ -1,15 +1,25 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import useGetData from "../../Routes/useGetData";
 import { Link } from "react-router-dom";
 import Pagination from "../shared/Pagination";
 
 const UserSubmittedTasks = () => {
+  const [count, setCount] = useState(0);
   const [page, setPage] = useState(0);
   const { user } = useContext(AuthContext);
   const { data, isLoading } = useGetData(
     "/register-contest/particular-contests/" + user?.userEmail
   );
+  useEffect(() => {
+    let temp = 0;
+    if (data) {
+      data?.forEach((d) => {
+        if (d?.winnerEmail === user?.userEmail) temp++;
+      });
+    }
+    setCount(temp);
+  }, [isLoading]);
   if (isLoading)
     return (
       <div className=" py-36 max-w-[1400px] mx-auto px-5">
@@ -27,11 +37,15 @@ const UserSubmittedTasks = () => {
             )}
         </div>
       </div>
-      <Pagination
-        page={page}
-        setPage={setPage}
-        length={data?.length}
-      ></Pagination>
+      {count > 0 ? (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          length={data?.length}
+        ></Pagination>
+      ) : (
+        <p className="text-center text-3xl font-bold">No Submissions Yet</p>
+      )}
     </>
   );
 };

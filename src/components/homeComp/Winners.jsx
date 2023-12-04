@@ -1,10 +1,7 @@
 import useGetData from "../../Routes/useGetData";
-import React, { useRef, useState } from "react";
-// Import Swiper React components
-// import Swiper from 'swiper';
+
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";

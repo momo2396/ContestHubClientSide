@@ -136,7 +136,7 @@ const Dashboard = () => {
               </label>
             </div>
             <div className="flex-1 px-2 mx-2">
-              <Link>ContestHub</Link>
+              <Link to="/">ContestHub</Link>
             </div>
             <div className="flex-none hidden lg:block">
               <ul className="menu menu-horizontal flex gap-10">

@@ -11,8 +11,8 @@ const Navbar = () => {
   const navOptions = (
     <>
       <Link to="/">Home</Link>
-      <Link to="/contests">All Contests</Link>
-      <Link to="/dashboard">Dashboard</Link>
+      <Link to="/contests">AllContests</Link>
+
       <Link to="/leader">LaederBoard</Link>
       <Link to="/timeVis">TimeVisualization</Link>
       {user ? (
@@ -34,7 +34,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="px-5 navbar bg-[#2a9d8f] sticky top-0 w-full z-50 text-white bg-opacity-80">
+    <div className="items-center px-5 navbar bg-[#2a9d8f] sticky top-0 w-full z-50 text-white bg-opacity-80">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -64,8 +64,10 @@ const Navbar = () => {
           Contest
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-10">{navOptions}</ul>
+      <div className="navbar-center hidden lg:flex justify-center items-center">
+        <ul className="flex items-center justify-center px-1 gap-10">
+          {navOptions}
+        </ul>
       </div>
       <div className="navbar-end">
         {user ? (
@@ -83,7 +85,10 @@ const Navbar = () => {
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <div className="text-red-700">{user?.userName}</div>
-                  <div>
+                  <div className="flex flex-col items-stretch gap-5">
+                    <Link className="text-black" to="/dashboard">
+                      Dashboard
+                    </Link>
                     <button
                       className="btn bg-[#a294cd] border-[#a294cd]"
                       onClick={handleLogOut}

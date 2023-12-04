@@ -26,9 +26,9 @@ const Leader = () => {
               <tr
                 key={d?._id}
                 d={d}
-                className={`${data[0] === 0 && "bg-yellow-500 text-white"} ${
-                  data[1] === 2 && "bg-yellow-950 text-white"
-                } ${data[2] === 1 && "bg-slate-500 text-white"}`}
+                className={`${data[0] === d && "bg-yellow-500 text-white"} ${
+                  data[1] === d && "bg-yellow-950 text-white"
+                } ${data[2] === d && "bg-slate-500 text-white"}`}
               >
                 <td>
                   <div className="mx-auto w-fit flex items-center gap-5">

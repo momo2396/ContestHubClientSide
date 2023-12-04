@@ -20,6 +20,7 @@ import MyRegisteredContest from "../components/dashboard/MyRegisteredContest";
 import UserSubmittedTasks from "../components/dashboard/UserSubmittedTasks";
 import MyWinningContests from "../components/dashboard/MyWinningContests";
 import Leader from "../components/leaderComp/Leader";
+import TimeVisualization from "../components/timeVisualizationComp/TimeVisualization";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/leader",
         element: <Leader></Leader>,
+      },
+      {
+        path: "/timeVis",
+        element: <TimeVisualization></TimeVisualization>,
       },
       {
         path: "/details/:id",

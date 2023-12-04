@@ -19,7 +19,7 @@ import Payment from "../components/dashboard/Payment";
 import MyRegisteredContest from "../components/dashboard/MyRegisteredContest";
 import UserSubmittedTasks from "../components/dashboard/UserSubmittedTasks";
 import MyWinningContests from "../components/dashboard/MyWinningContests";
-import MyPieChart from "../components/dashboard/MyPieChart";
+import Leader from "../components/leaderComp/Leader";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/contests",
         element: <Contests></Contests>,
+      },
+      {
+        path: "/leader",
+        element: <Leader></Leader>,
       },
       {
         path: "/details/:id",

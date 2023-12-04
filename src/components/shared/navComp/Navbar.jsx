@@ -13,6 +13,7 @@ const Navbar = () => {
       <Link to="/">Home</Link>
       <Link to="/contests">All Contests</Link>
       <Link to="/dashboard">Dashboard</Link>
+      <Link to="/leader">Lader Board</Link>
       {user ? (
         ""
       ) : (

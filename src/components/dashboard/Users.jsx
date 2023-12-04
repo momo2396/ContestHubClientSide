@@ -25,7 +25,10 @@ const Users = () => {
     refetch();
   };
 
-  if (isLoading) return <progress className="progress w-56"></progress>;
+  if (isLoading)
+    return (
+      <progress className="max-w-[1400px] mx-auto progress w-56"></progress>
+    );
   return (
     <>
       <div className="mt-20 max-w-[98vw] bg-[#606c38]">

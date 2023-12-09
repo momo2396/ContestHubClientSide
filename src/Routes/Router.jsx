@@ -22,6 +22,7 @@ import MyWinningContests from "../components/dashboard/MyWinningContests";
 import Leader from "../components/leaderComp/Leader";
 import TimeVisualization from "../components/timeVisualizationComp/TimeVisualization";
 import Search from "../components/homeComp/Search";
+import CheckTranslation from "../components/checkTranslation/CheckTranslation";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
         path: "/search/:search",
         element: <Search></Search>,
       },
+
       {
         path: "/details/:id",
         element: (

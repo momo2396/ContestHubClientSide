@@ -7,7 +7,8 @@ import { postUser } from "../../providers/postUser";
 
 // import { SiGmail } from "react-icons/si";
 const Login = () => {
-  const { signIn, loginWithGoogle, setLoading } = useContext(AuthContext);
+  const { signIn, loginWithGoogle, setLoading, setUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location?.state?.from?.pathname);
@@ -16,6 +17,12 @@ const Login = () => {
     loginWithGoogle().then(async (result) => {
       const user = result?.user;
       await postUser({
+        userEmail: user?.email,
+        userName: user?.displayName,
+        photoURL: user?.photoURL,
+        status: "user",
+      });
+      setUser({
         userEmail: user?.email,
         userName: user?.displayName,
         photoURL: user?.photoURL,

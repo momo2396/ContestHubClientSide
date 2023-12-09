@@ -38,6 +38,7 @@ const SubmittedTask = () => {
       icon: "success",
       confirmButtonText: "Cool",
     });
+    setSelect(true);
     refetch();
   };
   useEffect(() => {

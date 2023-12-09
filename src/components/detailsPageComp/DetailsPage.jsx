@@ -102,7 +102,8 @@ const DetailsPage = () => {
       </div>
       <div className="flex justify-end items-end">
         {new Date(data?.contestDeadline) > new Date() &&
-        user?.status === "user" ? (
+        user?.status === "user" &&
+        !data?.winnerName ? (
           <button
             onClick={handleRegisterContest}
             className={`bg-red-600 text-white p-4 btn hover:text-red-600 hover:bg-white`}
@@ -115,47 +116,50 @@ const DetailsPage = () => {
         )}
       </div>
       <div className="flex justify-center items-center">
-        {new Date(data?.contestDeadline) < new Date() ? (
-          <div className="bg-[#bc6c25] p-5 rounded-lg text-xl flex flex-col gap-3 text-white w-fit justify-center items-center">
-            <img src={data?.winnerImage} className="w-12 rounded-full" />
-            <p>Winner: {data?.winnerName}</p>
-          </div>
-        ) : (
+        {new Date(data?.contestDeadline) < new Date() ||
+          (data?.winnerName && (
+            <div className="bg-[#bc6c25] p-5 rounded-lg text-xl flex flex-col gap-3 text-white w-fit justify-center items-center">
+              <img src={data?.winnerImage} className="w-12 rounded-full" />
+              <p>Winner: {data?.winnerName}</p>
+            </div>
+            // ) : (
+            //   <div>
+            //     <p>
+            //       Started at: {data?.contestStartingTime} UTC,{" "}
+            //       {data?.contestStartingDate}
+            //     </p>
+            //   </div>
+          ))}
+      </div>
+      {!data?.winnerName && (
+        <div className="flex gap-5 justify-center items-center">
+          <p>Registration Deadline:</p>
           <div>
-            <p>
-              Started at: {data?.contestStartingTime} UTC,{" "}
-              {data?.contestStartingDate}
-            </p>
+            <span className="countdown font-mono text-4xl">
+              <span style={{ "--value": days }}></span>
+            </span>
+            days
           </div>
-        )}
-      </div>
-      <div className="flex gap-5 justify-center items-center">
-        <p>Registration Deadline:</p>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": days }}></span>
-          </span>
-          days
+          <div>
+            <span className="countdown font-mono text-4xl">
+              <span style={{ "--value": hours }}></span>
+            </span>
+            hours
+          </div>
+          <div>
+            <span className="countdown font-mono text-4xl">
+              <span style={{ "--value": minutes }}></span>
+            </span>
+            min
+          </div>
+          <div>
+            <span className="countdown font-mono text-4xl">
+              <span style={{ "--value": seconds }}></span>
+            </span>
+            sec
+          </div>
         </div>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": hours }}></span>
-          </span>
-          hours
-        </div>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": minutes }}></span>
-          </span>
-          min
-        </div>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span style={{ "--value": seconds }}></span>
-          </span>
-          sec
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -73,11 +73,7 @@ const MyWinningContests = () => {
         </div>
       </div>
       {count > 0 && (
-        <Pagination
-          page={page}
-          setPage={setPage}
-          length={data?.length}
-        ></Pagination>
+        <Pagination page={page} setPage={setPage} length={count}></Pagination>
       )}
     </>
   );

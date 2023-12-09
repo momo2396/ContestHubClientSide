@@ -86,7 +86,9 @@ const ContestCollection = ({ type }) => {
         <Pagination
           page={page}
           setPage={setPage}
-          length={contestData?.data?.length}
+          length={
+            contestData?.data?.filter((f) => f?.confirmed === true).length
+          }
         ></Pagination>
       )}
     </>
